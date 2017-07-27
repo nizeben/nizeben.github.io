@@ -254,6 +254,156 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/27/SVG测试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HuaChi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HuaChi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/27/SVG测试/" itemprop="url">SVG测试</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-27T23:11:38+08:00">
+                2017-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="svg图片降级引入"><a href="#svg图片降级引入" class="headerlink" title="svg图片降级引入"></a>svg图片降级引入</h1><h2 id="一-降级引入方式"><a href="#一-降级引入方式" class="headerlink" title="一.降级引入方式"></a>一.降级引入方式</h2><h4 id="方式一"><a href="#方式一" class="headerlink" title="- 方式一"></a>- 方式一</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;svg width=&quot;1024&quot; height=&quot;1027&quot;&gt;</div><div class="line">    &lt;image xlink:href=&quot;image.svg&quot; src=&quot;image.png&quot; width=&quot;1024&quot; height=&quot;1027&quot;/&gt;</div><div class="line">&lt;/svg&gt;</div></pre></td></tr></table></figure>
+<h6 id="使用这种引入方式的原因"><a href="#使用这种引入方式的原因" class="headerlink" title="使用这种引入方式的原因"></a>使用这种引入方式的原因</h6><p>如果浏览器支持SVG，则SVG显示；对于不支持的浏览器，例如IE8浏览器，会忽略svg标签的存在，直接渲染image，在其看来，这就是个img标签，于是，图像就以image.png的形式显示了。</p>
+<h6 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h6><p>1.缩小图片时文字不等比例缩放 （chrome QQ浏览器 搜狗浏览器）<br>2.IE11 和 IEedge 出现了svg图片和陪你过图片同时请求的情况<br>3.不同系统下字体不同</p>
+<h4 id="方式二"><a href="#方式二" class="headerlink" title="- 方式二"></a>- 方式二</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">.my-element &#123;</div><div class="line">  background-image: url(image.svg);</div><div class="line">&#125;</div><div class="line">.no-svg .my-element &#123;</div><div class="line">  background-image: url(image.png);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h6 id="使用这种引入方式的原因-1"><a href="#使用这种引入方式的原因-1" class="headerlink" title="使用这种引入方式的原因"></a>使用这种引入方式的原因</h6><p><a href="http://modernizr.cn/" target="_blank" rel="external">Modernizr</a>有一个SVG测试，可以判定设备是否支持SVG，于是，我们就可以通过在HTML元素上添加特定的类名(eg. no-svg)，做不同的样式控制。<br>==Modernizr可以分功能下载，只支持svg检测的压缩版js文件大小为8k==</p>
+<h6 id="出现的问题-1"><a href="#出现的问题-1" class="headerlink" title="出现的问题"></a>出现的问题</h6><p>1.ie8中同时请求png图片和svg图片<br>2.ie8不支持background－size 所以不能在ie8不能缩小图片<br>3.缩放图片文字不等比例压缩的情况依然出现 （chrome QQ浏览器 搜狗浏览器）<br>4.不同系统下字体不同</p>
+<h4 id="方式三"><a href="#方式三" class="headerlink" title="- 方式三"></a>- 方式三</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">.my-element &#123;</div><div class="line">    background-image: url(image.png);</div><div class="line">    background-image: url(image.svg), none;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h6 id="使用这种引入方式的原因-2"><a href="#使用这种引入方式的原因-2" class="headerlink" title="使用这种引入方式的原因"></a>使用这种引入方式的原因</h6><p>利用的技术是CSS3多背景，这是一个经验式技术，我们通过各种观察或者积累发现，浏览器只要支持了多背景，几乎无一例外支持SVG. 于是，浏览器认识url(image.svg), none这个多背景声明，就使用SVG，否则，降级使用上面的png背景。</p>
+<h6 id="出现的问题-2"><a href="#出现的问题-2" class="headerlink" title="出现的问题"></a>出现的问题</h6><p>1.ie8不支持background－size 所以不能在ie8不能缩小图片 但是没有出现同时请求两种格式图片的情况<br>2.缩放图片文字不等比例压缩的情况依然出现 （chrome QQ浏览器 搜狗浏览器）<br>3.不同系统下字体不同</p>
+<h3 id="降级引入测试总结"><a href="#降级引入测试总结" class="headerlink" title="降级引入测试总结"></a>降级引入测试总结</h3><p>==三种方式：<br>第一种方式好的一点是可以在ie8中进行图片缩放 而IE8不支持background－size 所以第二种第三种都不支持在ie8中缩放<br>第二种方式经过测试发现除ie8没有出现同时请求两种格式图片的情况 而且在支持background－size的浏览器中可以直接用 background-size: cover;或者background-size: 200px;来缩放图片不用考虑方式一中只改变宽高其中一项出现的留白和裁图问题。也比第一种方式更便于维护。<br>第三种方式中的优点跟第二种的一样 但是更好的是在ie8中没有出现同时请求两种图片的问题==</p>
+<h3 id="两种格式图片请求速度的详细截图"><a href="#两种格式图片请求速度的详细截图" class="headerlink" title="两种格式图片请求速度的详细截图"></a>两种格式图片请求速度的详细截图</h3><p>-png格式<br><img src="png速度.png" alt=""><br>-svg格式<br><img src="svg速度.png" alt=""><br>==这个我进行了多次测试 结果跟这个大体一致 测试图片中svg为224k png为78k 每次测试的结果都是svg请求的时间小于png请求==</p>
+<h3 id="两种格式的图片大小问题"><a href="#两种格式的图片大小问题" class="headerlink" title="两种格式的图片大小问题"></a>两种格式的图片大小问题</h3><p><img src="svg01.png" alt=""><img src="png01.png" alt=""><br><img src="svg02.png" alt=""><img src="png02.png" alt=""><br>经过测试发现 在不同的情况下svg图片相比png图片的的大小会不一样<br>==个人总结相对不复杂的图片导出的svg图片大小会小于png格式<br>相对复杂的图片导出的svg图片大小会大于png格式==</p>
+<h2 id="二-方式一中出现问题的详细截图"><a href="#二-方式一中出现问题的详细截图" class="headerlink" title="二.方式一中出现问题的详细截图"></a>二.方式一中出现问题的详细截图</h2><h3 id="如果把svg标签的高改变而不改变image标签的高会出现如下状态"><a href="#如果把svg标签的高改变而不改变image标签的高会出现如下状态" class="headerlink" title="如果把svg标签的高改变而不改变image标签的高会出现如下状态"></a>如果把svg标签的高改变而不改变image标签的高会出现如下状态</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;svg  width=&quot;1024&quot; height=&quot;102&quot;&gt;</div><div class="line">    &lt;image xlink:href=&quot;image.svg&quot; src=&quot;image.png&quot; width=&quot;1024&quot; height=&quot;1027&quot;/&gt;</div><div class="line">&lt;/svg&gt;</div></pre></td></tr></table></figure>
+<p><img src="001.jpg" alt=""><br>==结论：svg 和img 的高宽必需保持一致，不否会被留白或裁掉==</p>
+<h3 id="如果把svg标签和image标签的高度同时改变"><a href="#如果把svg标签和image标签的高度同时改变" class="headerlink" title="如果把svg标签和image标签的高度同时改变"></a>如果把svg标签和image标签的高度同时改变</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;svg width=&quot;1024&quot; height=&quot;102&quot;&gt;</div><div class="line">    &lt;image xlink:href=&quot;image.svg&quot; src=&quot;image.png&quot; width=&quot;1024&quot; height=&quot;102&quot;/&gt;</div><div class="line">&lt;/svg&gt;</div></pre></td></tr></table></figure>
+<p><img src="002.png" alt=""><br>改变image标签宽高会使svg图片等比例缩放，并且在某些浏览器会出现文字不缩放<br>乱码：chrome QQ浏览器 搜狗浏览器<br>无乱码：ie9-11 火狐浏览器 safair<br>==结论：不能用来处理等比例缩放，如果图片上有文字，文字不会等比例缩放==</p>
+<h2 id="浏览器兼容测试"><a href="#浏览器兼容测试" class="headerlink" title="浏览器兼容测试"></a>浏览器兼容测试</h2><ul>
+<li><p>chrome:<br><img src="chrome.png" alt=""></p>
+</li>
+<li><p>QQ浏览器：<br><img src="QQ.png" alt=""></p>
+</li>
+<li><p>360浏览器极速：<br><img src="360.png" alt=""><br>中文乱码</p>
+</li>
+<li><p>360 兼容模式：<br>图片无乱码<br>但是改变image宽高中的一个不会等比例缩放</p>
+</li>
+<li><p>safair：<br><img src="safira.png" alt=""></p>
+</li>
+<li><p>ie edge:<br><img src="ieedge.png" alt=""></p>
+</li>
+</ul>
+<p>出现问题，不支持svg图片<br>第一次加载发送请求png图片了  但是没截图   也没复现出来<br><img src="ieegde.png" alt=""></p>
+<ul>
+<li><p>ie 9:<br><img src="ie9.png" alt=""></p>
+</li>
+<li><p>ie 10:<br><img src="ie10.png" alt=""></p>
+</li>
+<li><p>ie 11:<br>两种情况都会请求png格式的图片<br>png图片请求成功  次数较少 多数为请求中止<br><img src="ie11.png" alt=""><br>png图片请求中止   但并没有造成请求阻塞<br><img src="ie11stop.png" alt=""></p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/27/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -365,6 +515,621 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/16/13213123/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HuaChi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HuaChi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/11/16/13213123/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-16T19:03:21+08:00">
+                2016-11-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<label>ninin</label>
+	<span>wowoowwo</span>
+	<img src="./png.png">
+</body>
+</html>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/28/mod/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HuaChi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HuaChi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/10/28/mod/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-28T19:01:59+08:00">
+                2016-10-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            /* Modernizr 2.8.3 (Custom Build) | MIT & BSD
+ * Build: http://modernizr.com/download/#-inlinesvg-svg-svgclippaths-shiv-cssclasses-load
+ */
+;
+
+
+
+window.Modernizr = (function( window, document, undefined ) {
+
+    var version = '2.8.3',
+
+    Modernizr = {},
+
+    enableClasses = true,
+
+    docElement = document.documentElement,
+
+    mod = 'modernizr',
+    modElem = document.createElement(mod),
+    mStyle = modElem.style,
+
+    inputElem  ,
+
+
+    toString = {}.toString,
+
+
+
+    ns = {'svg': 'http://www.w3.org/2000/svg'},
+
+    tests = {},
+    inputs = {},
+    attrs = {},
+
+    classes = [],
+
+    slice = classes.slice,
+
+    featureName,
+
+
+
+    _hasOwnProperty = ({}).hasOwnProperty, hasOwnProp;
+
+    if ( !is(_hasOwnProperty, 'undefined') && !is(_hasOwnProperty.call, 'undefined') ) {
+      hasOwnProp = function (object, property) {
+        return _hasOwnProperty.call(object, property);
+      };
+    }
+    else {
+      hasOwnProp = function (object, property) { 
+        return ((property in object) && is(object.constructor.prototype[property], 'undefined'));
+      };
+    }
+
+
+    if (!Function.prototype.bind) {
+      Function.prototype.bind = function bind(that) {
+
+        var target = this;
+
+        if (typeof target != "function") {
+            throw new TypeError();
+        }
+
+        var args = slice.call(arguments, 1),
+            bound = function () {
+
+            if (this instanceof bound) {
+
+              var F = function(){};
+              F.prototype = target.prototype;
+              var self = new F();
+
+              var result = target.apply(
+                  self,
+                  args.concat(slice.call(arguments))
+              );
+              if (Object(result) === result) {
+                  return result;
+              }
+              return self;
+
+            } else {
+
+              return target.apply(
+                  that,
+                  args.concat(slice.call(arguments))
+              );
+
+            }
+
+        };
+
+        return bound;
+      };
+    }
+
+    function setCss( str ) {
+        mStyle.cssText = str;
+    }
+
+    function setCssAll( str1, str2 ) {
+        return setCss(prefixes.join(str1 + ';') + ( str2 || '' ));
+    }
+
+    function is( obj, type ) {
+        return typeof obj === type;
+    }
+
+    function contains( str, substr ) {
+        return !!~('' + str).indexOf(substr);
+    }
+
+
+    function testDOMProps( props, obj, elem ) {
+        for ( var i in props ) {
+            var item = obj[props[i]];
+            if ( item !== undefined) {
+
+                            if (elem === false) return props[i];
+
+                            if (is(item, 'function')){
+                                return item.bind(elem || obj);
+                }
+
+                            return item;
+            }
+        }
+        return false;
+    }
+    tests['svg'] = function() {
+        return !!document.createElementNS && !!document.createElementNS(ns.svg, 'svg').createSVGRect;
+    };
+
+    tests['inlinesvg'] = function() {
+      var div = document.createElement('div');
+      div.innerHTML = '<svg>';
+      return (div.firstChild && div.firstChild.namespaceURI) == ns.svg;
+    };
+
+
+
+    tests['svgclippaths'] = function() {
+        return !!document.createElementNS && /SVGClipPath/.test(toString.call(document.createElementNS(ns.svg, 'clipPath')));
+    };
+
+    for ( var feature in tests ) {
+        if ( hasOwnProp(tests, feature) ) {
+                                    featureName  = feature.toLowerCase();
+            Modernizr[featureName] = tests[feature]();
+
+            classes.push((Modernizr[featureName] ? '' : 'no-') + featureName);
+        }
+    }
+
+
+
+     Modernizr.addTest = function ( feature, test ) {
+       if ( typeof feature == 'object' ) {
+         for ( var key in feature ) {
+           if ( hasOwnProp( feature, key ) ) {
+             Modernizr.addTest( key, feature[ key ] );
+           }
+         }
+       } else {
+
+         feature = feature.toLowerCase();
+
+         if ( Modernizr[feature] !== undefined ) {
+                                              return Modernizr;
+         }
+
+         test = typeof test == 'function' ? test() : test;
+
+         if (typeof enableClasses !== "undefined" && enableClasses) {
+           docElement.className += ' ' + (test ? '' : 'no-') + feature;
+         }
+         Modernizr[feature] = test;
+
+       }
+
+       return Modernizr; 
+     };
+
+
+    setCss('');
+    modElem = inputElem = null;
+
+    ;(function(window, document) {
+                var version = '3.7.0';
+
+            var options = window.html5 || {};
+
+            var reSkip = /^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$ i;="" var="" saveclones="/^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i;" supportshtml5styles;="" expando="_html5shiv" ;="" expanid="0;" expandodata="{};" supportsunknownelements;="" (function()="" {="" try="" a="document.createElement('a');" a.innerhtml="<xyz></xyz>" supportshtml5styles="('hidden'" in="" a);="" supportsunknownelements="a.childNodes.length" =="1" ||="" (document.createelement)('a');="" frag="document.createDocumentFragment();" return="" (="" typeof="" frag.clonenode="=" 'undefined'="" frag.createdocumentfragment="=" frag.createelement="=" );="" }());="" }="" catch(e)="" function="" addstylesheet(ownerdocument,="" csstext)="" p="ownerDocument.createElement('p')," parent="ownerDocument.getElementsByTagName('head')[0]" ownerdocument.documentelement;="" p.innerhtml="x<style>" +="" csstext="" '<="" style="">';
+          return parent.insertBefore(p.lastChild, parent.firstChild);
+        }
+
+            function getElements() {
+          var elements = html5.elements;
+          return typeof elements == 'string' ? elements.split(' ') : elements;
+        }
+
+            function getExpandoData(ownerDocument) {
+          var data = expandoData[ownerDocument[expando]];
+          if (!data) {
+            data = {};
+            expanID++;
+            ownerDocument[expando] = expanID;
+            expandoData[expanID] = data;
+          }
+          return data;
+        }
+
+            function createElement(nodeName, ownerDocument, data){
+          if (!ownerDocument) {
+            ownerDocument = document;
+          }
+          if(supportsUnknownElements){
+            return ownerDocument.createElement(nodeName);
+          }
+          if (!data) {
+            data = getExpandoData(ownerDocument);
+          }
+          var node;
+
+          if (data.cache[nodeName]) {
+            node = data.cache[nodeName].cloneNode();
+          } else if (saveClones.test(nodeName)) {
+            node = (data.cache[nodeName] = data.createElem(nodeName)).cloneNode();
+          } else {
+            node = data.createElem(nodeName);
+          }
+
+                                                    return node.canHaveChildren && !reSkip.test(nodeName) && !node.tagUrn ? data.frag.appendChild(node) : node;
+        }
+
+            function createDocumentFragment(ownerDocument, data){
+          if (!ownerDocument) {
+            ownerDocument = document;
+          }
+          if(supportsUnknownElements){
+            return ownerDocument.createDocumentFragment();
+          }
+          data = data || getExpandoData(ownerDocument);
+          var clone = data.frag.cloneNode(),
+          i = 0,
+          elems = getElements(),
+          l = elems.length;
+          for(;i</|^(?:button|map|select|textarea|object|iframe|option|optgroup)$></svg>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/27/svg/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HuaChi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HuaChi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/10/27/svg/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-27T10:27:01+08:00">
+                2016-10-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.my-element {
+		  background-image: url(svg.svg);
+		}
+		.no-svg .my-element {
+		  background-image: url(png.png);
+		  background-size: 200px 200px;
+		}
+	</style>
+</head>
+<body>
+	<div class="my-element" style="width:200px; height:200px">
+		
+	</div>
+	<script src="mod.js"></script>
+</body>
+</html>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -411,7 +1176,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
