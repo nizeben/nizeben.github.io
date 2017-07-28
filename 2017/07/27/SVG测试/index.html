@@ -118,7 +118,7 @@
 <meta property="og:image" content="http://yoursite.com/2017/07/27/SVG测试/ie10.png">
 <meta property="og:image" content="http://yoursite.com/2017/07/27/SVG测试/ie11.png">
 <meta property="og:image" content="http://yoursite.com/2017/07/27/SVG测试/ie11stop.png">
-<meta property="og:updated_time" content="2017-07-27T15:15:56.000Z">
+<meta property="og:updated_time" content="2017-07-28T03:13:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SVG测试">
 <meta name="twitter:description" content="svg图片降级引入一.降级引入方式- 方式一123&amp;lt;svg width=&amp;quot;1024&amp;quot; height=&amp;quot;1027&amp;quot;&amp;gt;    &amp;lt;image xlink:href=&amp;quot;image.svg&amp;quot; src=&amp;quot;image.png&amp;quot; width=&amp;quot;1024&amp;quot; height=&amp;quot;1027&amp;quo">
@@ -349,33 +349,33 @@
 <h6 id="使用这种引入方式的原因-2"><a href="#使用这种引入方式的原因-2" class="headerlink" title="使用这种引入方式的原因"></a>使用这种引入方式的原因</h6><p>利用的技术是CSS3多背景，这是一个经验式技术，我们通过各种观察或者积累发现，浏览器只要支持了多背景，几乎无一例外支持SVG. 于是，浏览器认识url(image.svg), none这个多背景声明，就使用SVG，否则，降级使用上面的png背景。</p>
 <h6 id="出现的问题-2"><a href="#出现的问题-2" class="headerlink" title="出现的问题"></a>出现的问题</h6><p>1.ie8不支持background－size 所以不能在ie8不能缩小图片 但是没有出现同时请求两种格式图片的情况<br>2.缩放图片文字不等比例压缩的情况依然出现 （chrome QQ浏览器 搜狗浏览器）<br>3.不同系统下字体不同</p>
 <h3 id="降级引入测试总结"><a href="#降级引入测试总结" class="headerlink" title="降级引入测试总结"></a>降级引入测试总结</h3><p>==三种方式：<br>第一种方式好的一点是可以在ie8中进行图片缩放 而IE8不支持background－size 所以第二种第三种都不支持在ie8中缩放<br>第二种方式经过测试发现除ie8没有出现同时请求两种格式图片的情况 而且在支持background－size的浏览器中可以直接用 background-size: cover;或者background-size: 200px;来缩放图片不用考虑方式一中只改变宽高其中一项出现的留白和裁图问题。也比第一种方式更便于维护。<br>第三种方式中的优点跟第二种的一样 但是更好的是在ie8中没有出现同时请求两种图片的问题==</p>
-<h3 id="两种格式图片请求速度的详细截图"><a href="#两种格式图片请求速度的详细截图" class="headerlink" title="两种格式图片请求速度的详细截图"></a>两种格式图片请求速度的详细截图</h3><p>-png格式<br><img src="png速度.png" alt=""><br>-svg格式<br><img src="svg速度.png" alt=""><br>==这个我进行了多次测试 结果跟这个大体一致 测试图片中svg为224k png为78k 每次测试的结果都是svg请求的时间小于png请求==</p>
-<h3 id="两种格式的图片大小问题"><a href="#两种格式的图片大小问题" class="headerlink" title="两种格式的图片大小问题"></a>两种格式的图片大小问题</h3><p><img src="svg01.png" alt=""><img src="png01.png" alt=""><br><img src="svg02.png" alt=""><img src="png02.png" alt=""><br>经过测试发现 在不同的情况下svg图片相比png图片的的大小会不一样<br>==个人总结相对不复杂的图片导出的svg图片大小会小于png格式<br>相对复杂的图片导出的svg图片大小会大于png格式==</p>
+<h3 id="两种格式图片请求速度的详细截图"><a href="#两种格式图片请求速度的详细截图" class="headerlink" title="两种格式图片请求速度的详细截图"></a>两种格式图片请求速度的详细截图</h3><p>-png格式<br><img src="/2017/07/27/SVG测试/png速度.png" alt=""><br>-svg格式<br><img src="/2017/07/27/SVG测试/svg速度.png" alt=""><br>==这个我进行了多次测试 结果跟这个大体一致 测试图片中svg为224k png为78k 每次测试的结果都是svg请求的时间小于png请求==</p>
+<h3 id="两种格式的图片大小问题"><a href="#两种格式的图片大小问题" class="headerlink" title="两种格式的图片大小问题"></a>两种格式的图片大小问题</h3><p><img src="/2017/07/27/SVG测试/svg01.png" alt=""><img src="/2017/07/27/SVG测试/png01.png" alt=""><br><img src="/2017/07/27/SVG测试/svg02.png" alt=""><img src="/2017/07/27/SVG测试/png02.png" alt=""><br>经过测试发现 在不同的情况下svg图片相比png图片的的大小会不一样<br>==个人总结相对不复杂的图片导出的svg图片大小会小于png格式<br>相对复杂的图片导出的svg图片大小会大于png格式==</p>
 <h2 id="二-方式一中出现问题的详细截图"><a href="#二-方式一中出现问题的详细截图" class="headerlink" title="二.方式一中出现问题的详细截图"></a>二.方式一中出现问题的详细截图</h2><h3 id="如果把svg标签的高改变而不改变image标签的高会出现如下状态"><a href="#如果把svg标签的高改变而不改变image标签的高会出现如下状态" class="headerlink" title="如果把svg标签的高改变而不改变image标签的高会出现如下状态"></a>如果把svg标签的高改变而不改变image标签的高会出现如下状态</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;svg  width=&quot;1024&quot; height=&quot;102&quot;&gt;</div><div class="line">    &lt;image xlink:href=&quot;image.svg&quot; src=&quot;image.png&quot; width=&quot;1024&quot; height=&quot;1027&quot;/&gt;</div><div class="line">&lt;/svg&gt;</div></pre></td></tr></table></figure>
-<p><img src="001.jpg" alt=""><br>==结论：svg 和img 的高宽必需保持一致，不否会被留白或裁掉==</p>
+<p><img src="/2017/07/27/SVG测试/001.jpg" alt=""><br>==结论：svg 和img 的高宽必需保持一致，不否会被留白或裁掉==</p>
 <h3 id="如果把svg标签和image标签的高度同时改变"><a href="#如果把svg标签和image标签的高度同时改变" class="headerlink" title="如果把svg标签和image标签的高度同时改变"></a>如果把svg标签和image标签的高度同时改变</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;svg width=&quot;1024&quot; height=&quot;102&quot;&gt;</div><div class="line">    &lt;image xlink:href=&quot;image.svg&quot; src=&quot;image.png&quot; width=&quot;1024&quot; height=&quot;102&quot;/&gt;</div><div class="line">&lt;/svg&gt;</div></pre></td></tr></table></figure>
-<p><img src="002.png" alt=""><br>改变image标签宽高会使svg图片等比例缩放，并且在某些浏览器会出现文字不缩放<br>乱码：chrome QQ浏览器 搜狗浏览器<br>无乱码：ie9-11 火狐浏览器 safair<br>==结论：不能用来处理等比例缩放，如果图片上有文字，文字不会等比例缩放==</p>
+<p><img src="/2017/07/27/SVG测试/002.png" alt=""><br>改变image标签宽高会使svg图片等比例缩放，并且在某些浏览器会出现文字不缩放<br>乱码：chrome QQ浏览器 搜狗浏览器<br>无乱码：ie9-11 火狐浏览器 safair<br>==结论：不能用来处理等比例缩放，如果图片上有文字，文字不会等比例缩放==</p>
 <h2 id="浏览器兼容测试"><a href="#浏览器兼容测试" class="headerlink" title="浏览器兼容测试"></a>浏览器兼容测试</h2><ul>
-<li><p>chrome:<br><img src="chrome.png" alt=""></p>
+<li><p>chrome:<br><img src="/2017/07/27/SVG测试/chrome.png" alt=""></p>
 </li>
-<li><p>QQ浏览器：<br><img src="QQ.png" alt=""></p>
+<li><p>QQ浏览器：<br><img src="/2017/07/27/SVG测试/QQ.png" alt=""></p>
 </li>
-<li><p>360浏览器极速：<br><img src="360.png" alt=""><br>中文乱码</p>
+<li><p>360浏览器极速：<br><img src="/2017/07/27/SVG测试/360.png" alt=""><br>中文乱码</p>
 </li>
 <li><p>360 兼容模式：<br>图片无乱码<br>但是改变image宽高中的一个不会等比例缩放</p>
 </li>
-<li><p>safair：<br><img src="safira.png" alt=""></p>
+<li><p>safair：<br><img src="/2017/07/27/SVG测试/safira.png" alt=""></p>
 </li>
-<li><p>ie edge:<br><img src="ieedge.png" alt=""></p>
+<li><p>ie edge:<br><img src="/2017/07/27/SVG测试/ieedge.png" alt=""></p>
 </li>
 </ul>
-<p>出现问题，不支持svg图片<br>第一次加载发送请求png图片了  但是没截图   也没复现出来<br><img src="ieegde.png" alt=""></p>
+<p>出现问题，不支持svg图片<br>第一次加载发送请求png图片了  但是没截图   也没复现出来<br><img src="/2017/07/27/SVG测试/ieegde.png" alt=""></p>
 <ul>
-<li><p>ie 9:<br><img src="ie9.png" alt=""></p>
+<li><p>ie 9:<br><img src="/2017/07/27/SVG测试/ie9.png" alt=""></p>
 </li>
-<li><p>ie 10:<br><img src="ie10.png" alt=""></p>
+<li><p>ie 10:<br><img src="/2017/07/27/SVG测试/ie10.png" alt=""></p>
 </li>
-<li><p>ie 11:<br>两种情况都会请求png格式的图片<br>png图片请求成功  次数较少 多数为请求中止<br><img src="ie11.png" alt=""><br>png图片请求中止   但并没有造成请求阻塞<br><img src="ie11stop.png" alt=""></p>
+<li><p>ie 11:<br>两种情况都会请求png格式的图片<br>png图片请求成功  次数较少 多数为请求中止<br><img src="/2017/07/27/SVG测试/ie11.png" alt=""><br>png图片请求中止   但并没有造成请求阻塞<br><img src="/2017/07/27/SVG测试/ie11stop.png" alt=""></p>
 </li>
 </ul>
 
